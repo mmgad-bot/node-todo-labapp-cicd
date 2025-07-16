@@ -4,12 +4,12 @@ pipeline {
     stages{
         stage('code'){
             steps {
-                git url: 'https://github.com/Ashfaque-9x/node-todo-labapp-cicd.git', branch: 'main'
+                git url: 'https://github.com/mmgad-bot/node-todo-labapp-cicd.git', branch: 'main'
             }
         }
         stage('Build and Test'){
             steps {
-                sh 'docker build . -t ashfaque9x/node-todo-labapp-cicd:latest'
+                sh 'docker build . -t mmgad-bot/node-todo-labapp-cicd:latest'
             }
         }
         stage('Login and Push Image'){
@@ -17,7 +17,7 @@ pipeline {
                 echo 'logging in to docker hub and pushing image..'
                 withCredentials([usernamePassword(credentialsId:'DockerHub',passwordVariable:'DockerHubPassword', usernameVariable:'DockerHubUsername')]) {
                     sh "docker login -u ${env.DockerHubUsername} -p ${env.DockerHubPassword}"
-                    sh "docker push ashfaque9x/node-todo-labapp-cicd:latest"
+                    sh "docker push mmgad-bot/node-todo-labapp-cicd:latest"
                 }    
             }
         }
